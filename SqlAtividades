@@ -1,0 +1,115 @@
+create database Teste;
+show databases;
+
+use Teste;
+
+create table alunos (
+	id int auto_increment primary key, 
+    nome varchar(100) not null, 
+    idade int, 
+    disciplina varchar(50)
+);
+
+show tables;
+
+insert into alunos (nome, idade, disciplina)
+values ('João Carlos', 17, 'Banco de Dados'),
+('Maria Rita', 23, 'Lógica de Programação'),
+('Renato da Silva', 28, 'Banco de Dados'),
+('Fernanda Ramos', 21, 'Programação de Aplicativos'),
+('Evelin Duarte', 32, 'Lógica de Programação'),
+('Mariana Alves', 18, 'Modelagem de Sistema'), 
+('Carlos Lima', 17, 'Desenvolvimento Web'),
+('Ana Souza', 16, 'Banco de Dados'),
+('Marcelo Vieira', 25, 'Programação de Aplicativos'),
+('André Gregório', 17, 'Modelagem de Sistema');
+
+-- 1
+select * from alunos;
+
+-- 2
+select nome, idade from alunos;
+
+-- 3
+select *from alunos where disciplina='Modelagem de Sistema';
+
+-- 4
+select *from alunos where idade>19;
+
+-- 5
+select nome from alunos order by nome asc;
+
+-- 6
+select nome, idade from alunos order by idade asc;
+
+-- 7
+select * from alunos where disciplina='Banco de Dados' or disciplina='Programação de Aplicativos';
+
+-- 8
+select count(*) from alunos;
+
+-- 9
+select avg(idade) FROM alunos;
+
+-- 10
+select count(*) as BancodeDados from alunos where disciplina='Banco de Dados';
+select count(*) as LogicadeProgramacao from alunos where disciplina='Lógica de Programação';
+select count(*) as ProgramacaodeAplicativos from alunos where disciplina='Programação de Aplicativos';
+select count(*) as ModelagemdeSistemas from alunos where disciplina='Modelagem de Sistema';
+select count(*) as DesenvolvimentoWeb from alunos where disciplina='Desenvolvimento Web';
+select nome, disciplina from alunos order by disciplina;
+
+-- 11
+update alunos set idade=19 where id=8;
+select * from alunos;
+
+-- 12
+update alunos set disciplina='Progrmação Mobile' where disciplina='Programação de Aplicativos';
+select * from alunos;
+
+-- 13
+delete from alunos where nome="André Gregório";
+select * from alunos;
+
+-- 14
+ALTER TABLE alunos
+ADD email varchar(50);
+select * from alunos;
+
+-- 15
+alter table alunos modify disciplina varchar(150);
+
+-- 16
+alter table alunos drop email;
+
+-- 17
+select * from alunos where nome like 'A%';
+
+-- 18
+select * from alunos where nome like '%a';
+
+-- 19
+select * from alunos where nome like '%e%';
+
+-- 20
+select disciplina FROM alunos group by disciplina having avg(idade)> 19;
+
+-- 21
+select nome, idade from alunos where idade = (select max(idade) from alunos);
+
+-- 22
+create table alunos_bd
+as select * from alunos
+where disciplina='Banco de Dados';
+select * from alunos_bd;
+
+-- 23
+create database biblioteca_db;
+use biblioteca_db;
+create table livros(
+	id int auto_increment primary key, 
+    titulo varchar(150) not null, 
+    autor varchar(150),
+    ano_publicacao int,
+    disponivel boolean
+)
